@@ -2,7 +2,7 @@
 
 [EN] The first purpose of my scripts is to spoof the ".exe" extension most commonly used by backdoors with the following extensions ; ".jpg, .pdf, .png". The second purpose is to use a homoglyph character with the allowed extensions by the script.<br/><br/>The extension spoofing is a quite old attack easly detected by Windows Defender ( and probably others AV softwares ) when UTF-8 characters are used. However, the AV detection doesn't work ( I only tested with Windows Defender ) when non UTF-8 characters are used in order to spoof an .exe extension.<br/><br/>In such case, a backdoor is likely not detected by the user and can be executed without any issue. Of course, There are others mechanism enabled by most of AV tools during the execution in order to avoid malware infection.<br/><br/>The attack effectivity is a bit limited. The scripts can rename the backdoor only under the name "annexe". If the victim OS isn't configured to unhide file extension, it's probably like not going to work. For an exemple, the user could see a file named "Annjpg".<br/><br/>I don't have the will ( and the time ) to dig this out. If you know how to solve this, it's up to you ! 
 
-usage : .\glypheDoor.ps1 -ext ${extension} -exeTObfs ${exeFile}
+usage : <pre>.\glypheDoor.ps1 -ext ${extension} -exeTObfs ${exeFile}
 
 ===========================================================================
 
