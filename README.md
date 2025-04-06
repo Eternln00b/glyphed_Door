@@ -9,3 +9,7 @@
 [FR] Le but premier de mon script est de spoofer l'extension des executables ".exe" avec les extensions suivantes ; ".jpg, .pdf, .png".<br/>Le second but est d'utiliser un caractère homoglyphe avec les extensions que mon script permet de choisir.<br/><br/>L'attaque "extension spoofing" est une attaque ancienne que Windows Defender ( et probablement d'autres antiviraux ) arrive à détecter quand des caractères classiques sont utilisés.<br/><br/>Quand des caractères non communs mais qui semblent similaires sont utilisés, l'attaque n'est plus détectée ( Avec Windows Defender ). Dans ce cas de figure, un backdoor avec une extension "spoofée" est exécutable sans problème.<br/><br/>La portée de l'attaque reste limitée. Le script peut uniquement renommer les backdoors en utilisant le nom "annexe". Si l'OS ciblé n'est pas configuré pour voir les extensions des fichiers, l'attaque a des chances de ne pas aboutir. L'utilisateur risque par exemple de voir un fichier dont le nom serait "AnnJpg".<br/><br/>La flemme d'y jetter un coup d'oeil, si vous étes déterminé à résoudre tout ça, bonne chance ! 
 
 <pre>la commande : .\glypheDoor.ps1 -ext ${extension} -exeTObfs ${exeFile}</pre>
+
+===========================================================================
+
+[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/anYN04cNj_E/0.jpg)](https://www.youtube.com/watch?v=anYN04cNj_E)
