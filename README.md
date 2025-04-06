@@ -12,4 +12,4 @@
 
 ===========================================================================
 
-[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/anYN04cNj_E/0.jpg)](https://www.youtube.com/watch?v=anYN04cNj_E)
+[![YouTube](http://i.ytimg.com/vi/anYN04cNj_E/hqdefault.jpg)](https://www.youtube.com/watch?v=anYN04cNj_E)
